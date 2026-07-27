@@ -4,7 +4,7 @@
 **EWMA** stands for **Exponentially Weighted Moving Average**. 
 It's a filter/estimator that produces a running average where recent samples count more than older ones, with the weight decaying exponentially the further back in time you go:
 
-$$y[n] = \alpha\, x[n] + (1-\alpha)\, y[n-1]$$
+$$y[n] = \alpha\cdot x[n] + (1-\alpha) \cdot y[n-1]$$
 
 **<mark>Key properties:**</mark>
 - **Unity DC gain** when $\alpha + (1-\alpha) = 1$ (always true by construction).
@@ -18,9 +18,9 @@ $$y[n] = \alpha\, x[n] + (1-\alpha)\, y[n-1]$$
 
 **EWMA IIR filter implementation**
 
-$y[n] = \alpha\, x[n] + (1-\alpha)\, y[n-1]$
+$y[n] = \alpha\cdot x[n] + (1-\alpha)\cdot y[n-1]$
 
-$y[n] = \alpha\, x[n] + y[n-1] - \alpha\cdot y[n-1]$
+$y[n] = \alpha\cdot x[n] + y[n-1] - \alpha\cdot y[n-1]$
 
 $y[n] = y[n-1] + \alpha\cdot( x[n]- y[n-1])$
 
@@ -39,28 +39,28 @@ If we unroll the recursion, $y[n]$ turns out to be a weighted sum of all past sa
 
 Starting from:
 
-$$y[n] = \alpha\, x[n] + (1-\alpha)\, y[n-1]$$
+$$y[n] = \alpha\cdot x[n] + (1-\alpha)\cdot y[n-1]$$
 
 Substitute the expression for $y[n-1]$ :
 
-$$y[n-1] = \alpha\, x[n-1] + (1-\alpha)\, y[n-2]$$
+$$y[n-1] = \alpha\cdot x[n-1] + (1-\alpha)\cdot y[n-2]$$
 
 So:
 
-$$y[n] = \alpha\, x[n] + (1-\alpha)\left[\alpha\, x[n-1] + (1-\alpha)\, y[n-2]\right]$$
+$$y[n] = \alpha\, x[n] + (1-\alpha)\left[\alpha\cdot x[n-1] + (1-\alpha)\cdot y[n-2]\right]$$
 
-$$y[n] = \alpha\, x[n] + \alpha(1-\alpha)\, x[n-1] + (1-\alpha)^2\, y[n-2]$$
+$$y[n] = \alpha\cdot x[n] + \alpha(1-\alpha)\cdot x[n-1] + (1-\alpha)^2\cdot y[n-2]$$
 
 Repeating this substitution one more level (expanding $y[n-2]$):
 
-$$y[n] = \alpha\, x[n] + \alpha(1-\alpha)\, x[n-1] + \alpha(1-\alpha)^2\, x[n-2] + (1-\alpha)^3\, y[n-3]$$
+$$y[n] = \alpha\cdot x[n] + \alpha(1-\alpha)\cdot x[n-1] + \alpha(1-\alpha)^2\cdot x[n-2] + (1-\alpha)^3\cdot y[n-3]$$
 
 So:
-$$\boxed{y[n] = \alpha \sum_{k=0}^{j} \left[(1-\alpha)^k\, x[n-k]\right] + (1-\alpha)^{j+1}\, y[n-j-1]}$$
+$$\boxed{y[n] = \alpha \sum_{k=0}^{j} \left[(1-\alpha)^k\cdot x[n-k]\right] + (1-\alpha)^{j+1}\cdot y[n-j-1]}$$
 
 As $j \to \infty$, the tail term vanishes:
 
-$$\lim_{j\to\infty} (1-\alpha)^{j+1}\,y[n-j-1] = 0$$
+$$\lim_{j\to\infty} (1-\alpha)^{j+1} \cdot y[n-j-1] = 0$$
 
 This holds because $|1-\alpha| < 1$ (true for any $0 < \alpha < 1$, so the geometric factor decays to zero — provided $y[n-j-1]$ stays **bounded** as $j\to\infty$ (true for any physically reasonable/bounded input signal).
 
@@ -77,18 +77,18 @@ $${y[n] = \alpha \sum_{k=0}^{\infty}(1-\alpha)^k=\alpha\frac{1}{1-(1-\alpha)}=1 
 **Calculation of transfer function and poles translation (from digital domain to continuous domain)**
 
 
-$y[n] = (1-\alpha)\,y[n-1] + \alpha\cdot\,x[n]$
+$y[n] = (1-\alpha)\cdot y[n-1] + \alpha\cdot x[n]$
 
-$Y(z) = (1-\alpha)\,z^{-1}Y(z) + \alpha\,X(z)$
+$Y(z) = (1-\alpha)\cdot z^{-1}Y(z) + \alpha\cdot X(z)$
 
-$Y(z) = z^{-1}Y(z) -\alpha\,z^{-1}Y(z) + \alpha\,X(z)$
+$Y(z) = z^{-1}Y(z) -\alpha\cdot z^{-1}Y(z) + \alpha\cdot X(z)$
 
 
-$Y(z)\left(1 - (1-\alpha)\,z^{-1}\right) = \alpha\,X(z)$
+$Y(z)\left(1 - (1-\alpha)\cdot z^{-1}\right) = \alpha\cdot X(z)$
 
 The transfer function $H(z)$ :
 
-$$H(z) = \frac{Y(z)}{X(z)} = \frac{\alpha}{1 - (1-\alpha)\,z^{-1}}$$
+$$H(z) = \frac{Y(z)}{X(z)} = \frac{\alpha}{1 - (1-\alpha)\cdot z^{-1}}$$
 or
 $$H(z) = \frac{Y(z)}{X(z)} = \frac{\alpha{z}}{z - (1-\alpha)}$$
 
@@ -145,7 +145,7 @@ for $\alpha=2^{-15}=0.00003051$ : $$f=\frac{\alpha f_s}{2\pi}=\frac{2^{-15}\cdot
 
 The discrete time frequency response is obtained by evaluating $H(z)$ on the unit circle, (by substituting $z = e^{j\omega}$ , while  $-\pi \leq\omega\leq\pi$):
 
-$$H(e^{j\omega}) = \frac{\alpha}{1-(1-\alpha)\,e^{-j\omega}}$$
+$$H(e^{j\omega}) = \frac{\alpha}{1-(1-\alpha)\cdot e^{-j\omega}}$$
 
 Deriving magnitude and phase:
 
