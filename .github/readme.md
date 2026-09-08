@@ -124,7 +124,7 @@ Rewriting in the standard form $s_0 = -\sigma_0$ (where $\sigma_0$ is continuous
 
 $$\sigma_0 = -\frac{1}{T}\ln(1-\alpha) = \frac{1}{T}\ln\!\left(\frac{1}{1-\alpha}\right)=\frac{1}{T}\left[ln(1) -ln(1-a) \right]$$
 
-Small-$\alpha$ approximation: for $\alpha \ll 1$ (for example, $\alpha = 2^{-11} \approx 4.88\times10^{-4}$), we can use the Taylor expansion $\ln(1-\alpha) \approx  -\alpha$:
+Small $$\alpha $$ approximation: for $\alpha \ll 1$ (for example, $\alpha = 2^{-11} \approx 4.88\times10^{-4}$), we can use the Taylor expansion $\ln(1-\alpha) \approx  -\alpha$:
 
 $$\sigma_0 = 2\pi f\approx \frac{\alpha}{T} = \alpha f_s \ [rad/sec]$$
 
