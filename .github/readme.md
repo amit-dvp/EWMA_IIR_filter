@@ -1,6 +1,7 @@
-**VHDL and Verilog implementation of general Low Pass IIR EWMA filter.**
 
----
+
+## **VHDL / Verilog implementation of general Low Pass IIR EWMA filter.**
+
 **EWMA** stands for **Exponentially Weighted Moving Average**. 
 It's a filter/estimator that produces a running average where recent samples count more than older ones, with the weight decaying exponentially the further back in time you go:
 
