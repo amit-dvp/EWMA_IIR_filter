@@ -1,4 +1,4 @@
-**This design contains VHDL and Verilog implementation of general Low Pass IIR EWMA filter.**
+**VHDL and Verilog implementation of general Low Pass IIR EWMA filter.**
 
 ---
 **EWMA** stands for **Exponentially Weighted Moving Average**. 
